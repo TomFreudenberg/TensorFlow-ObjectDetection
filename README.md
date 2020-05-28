@@ -1,22 +1,31 @@
 # README.md
 
-* Tutorial inspired: https://www.edureka.co/blog/tensorflow-object-detection-tutorial/
 
-# Create example folder
+# Clone tutorial project
 
 ```bash
 # use your projects folder
 cd /home
-# create folder for tutorial
-mkdir tensorflow-tutorial
-# open new folder
-cd tensorflow-tutorial
+# clone this repository
+git clone https://github.com/TomFreudenberg/TensorFlow-ObjectDetection.git tf-tutorial
+cd tf-tutorial
 ```
+
+
+# Run tutorial
+
+If all tools and packages installed, you may run the object_detection example:
+
+```bash
+cd src/tutorial
+python image_object_detection.py
+```
+
 
 # Setup environment
 
 ```bash
-# prepare virtual environment
+# prepare a virtual environment path
 mkdir -p venv/bin
 # install packages
 pip install tensorflow
@@ -28,13 +37,13 @@ pip install jupyter
 pip install matplotlib
 ```
 
-### Download latest protoc for OS
+### Download latest Protobuf
 
-You need to Download Protobuf version 3.4 or above for this demo and extract it.
+Download the latest Protobuf version for your OS and extract it.
 
 * https://github.com/google/protobuf/releases
 
-##### OSX binary
+##### OSX binary (e.g.)
 
 ```bash
 cd venv
@@ -43,27 +52,20 @@ unzip protoc-3*.zip
 cd ..
 ```
 
-### prepare Source folder
-
-```bash
-mkdir -p src
-cd src
-mkdir -p tensorflow
-mkdir -p tutorial
-```
 
 ### Download TensorFlow models from github
 
-Now you need to Clone or Download TensorFlow’s Model from Github. Once downloaded and extracted rename the “models-masters” to just “models“.
+Clone or download TensorFlow’s Model from Github. The downloaded archive must be extracted as "models" folder.
 
 * https://github.com/tensorflow/models
 
 ```bash
-cd tensorflow
+mkdir -p src/tensorflow
+cd src/tensorflow
 curl -L -O https://github.com/tensorflow/models/archive/master.zip
 unzip master.zip
 mv models-master models
-cd ..
+cd ../..
 ```
 
 Patch models to be compatible with TensorFlow 2 and newer tools
@@ -74,7 +76,7 @@ echo '+++ input_reader.proto'
 echo '@@ -4 +4 @@'
 echo '-import "object_detection/protos/image_resizer.proto";'
 echo '+// import "object_detection/protos/image_resizer.proto";'
-) | patch -s tensorflow/models/research/object_detection/protos/input_reader.proto
+) | patch -s src/tensorflow/models/research/object_detection/protos/input_reader.proto
 
 (
 echo '--- ops.py'
@@ -87,27 +89,22 @@ echo '+'
 echo '@@ -846 +846 @@'
 echo '-        box_ind=tf.range(num_boxes),'
 echo '+        box_indices=tf.range(num_boxes),'
-) | patch -s tensorflow/models/research/object_detection/utils/ops.py
+) | patch -s src/tensorflow/models/research/object_detection/utils/ops.py
 ```
 
-### Create .py from proto files
+### Run protoc to create .py from proto files
 
-Next, we need to go inside the research folder and run protobuf:
+Open the research folder and run protobuf:
 
 ```bash
-cd tensorflow/models/research/
+cd src/tensorflow/models/research/
 ../../../../venv/bin/protoc object_detection/protos/*.proto --python_out=.
-cd ../../..
+cd ../../../..
 ```
 
-To check whether this worked or not, you can look at the protos folder and check that for every proto file there’s one python file created.
-cd t
+Check if this had worked, while looking at the protos folder. Every proto file should have a python file created.
 
-# Run tutorial
 
-Now being able to run object_detection example:
+# Credits
 
-```bash
-cd tutorial
-python image_object_detection.py
-```
+* Tutorial inspired: https://www.edureka.co/blog/tensorflow-object-detection-tutorial/
