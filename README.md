@@ -1,5 +1,8 @@
 # README.md
 
+<img src="https://www.gstatic.com/devrel-devsite/prod/v050cadc3f3cf927d4089880349cc4dea1a9dab3bc6036e7a65cc361fddd65555/tensorflow/images/lockup.svg">
+
+This is a running walkthru to use TensorFlows [(www.tensorflow.org)](https://www.tensorflow.org/) object detection capabilities.
 
 # Clone tutorial project
 
@@ -107,4 +110,4 @@ Check if this had worked, while looking at the protos folder. Every proto file s
 
 # Credits
 
-* Tutorial inspired: https://www.edureka.co/blog/tensorflow-object-detection-tutorial/
+* Tutorial inspired from: https://www.edureka.co/blog/tensorflow-object-detection-tutorial/
